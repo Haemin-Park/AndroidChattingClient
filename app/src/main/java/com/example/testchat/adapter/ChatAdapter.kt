@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.persistableBundleOf
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testchat.model.Chat
 import com.example.testchat.R
@@ -26,8 +27,8 @@ class ChatAdapter(val context: Context, val chatDatas: ArrayList<Chat>)
         val messageType = currentItem.type
 
         when(messageType){
-            "myMsg" -> return 1
-            "receiveMsg" -> return 2
+            "myMsg" -> return 0
+            "receiveMsg" -> return 1
         }
 
         return super.getItemViewType(position)
@@ -35,11 +36,11 @@ class ChatAdapter(val context: Context, val chatDatas: ArrayList<Chat>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 
-        var view: View
+        val view: View
 
-        when(viewType){
-            1 -> view = LayoutInflater.from(context).inflate(R.layout.my_msgitem, parent, false)
-            else -> view = LayoutInflater.from(context).inflate(R.layout.receive_msgitem, parent, false)
+        view = when(viewType){
+            0 -> LayoutInflater.from(context).inflate(R.layout.my_msgitem, parent, false)
+            else -> LayoutInflater.from(context).inflate(R.layout.receive_msgitem, parent, false)
         }
 
         return Holder(view)
