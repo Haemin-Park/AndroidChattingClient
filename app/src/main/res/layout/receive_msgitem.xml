@@ -18,14 +18,13 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/sm_space"
             android:orientation="vertical"
-            android:background="@color/colorPrimary">
+            android:background="@color/remsg">
 
             <TextView
                 android:id="@+id/messageTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sm_fontsize"
-                android:textColor="#FFFFFF"
+                android:textSize="@dimen/lg_fontsize"
                 tools:text="타인의 메시지"
                 />
 

@@ -13,13 +13,13 @@
         android:layout_alignParentRight="true"
         android:padding="@dimen/sm_space"
         android:orientation="vertical"
-        android:background="@color/colorAccent">
+        android:background="@color/mymsg">
 
         <TextView
             android:id="@+id/messageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sm_fontsize"
+            android:textSize="@dimen/lg_fontsize"
             tools:text="본인의 메시지"
             />
 
