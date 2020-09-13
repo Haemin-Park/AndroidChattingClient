@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testchat.Constant
-import com.example.testchat.model.Chat
 import com.example.testchat.R
+import com.example.testchat.model.Chat
 
 class ChatAdapter(val context: Context)
     : RecyclerView.Adapter<ChatAdapter.Holder>()
@@ -16,7 +16,7 @@ class ChatAdapter(val context: Context)
     val MY_VIEW = 1;
     val RECEIVE_VIEW = 2;
 
-    val constant = com.example.testchat.Constant()
+    val constant = Constant()
 
     var chatDatas = ArrayList<Chat>()
 
@@ -27,20 +27,22 @@ class ChatAdapter(val context: Context)
 
     inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
 
+        val mid = itemView.findViewById<TextView>(R.id.mid)
         val chat_item = itemView.findViewById<TextView>(R.id.messageTextView)
 
         fun bind(chatData: Chat, context: Context){
+            mid.text = chatData.sender
             chat_item.text = chatData.message
         }
     }
 
     override fun getItemViewType(position: Int) : Int{
         val currentItem: Chat = chatDatas[position]
-        val messageType = currentItem.type
+        val sender = currentItem.sender
 
-        when(messageType){
-            constant.MESSAGE_TYPE_MY -> return MY_VIEW
-            constant.MESSAGE_TYPE_RECEIVE -> return RECEIVE_VIEW
+        when(sender){
+            constant.SENDER -> return MY_VIEW
+            else -> return RECEIVE_VIEW
         }
 
         return super.getItemViewType(position)

@@ -1,4 +1,10 @@
 package com.example.testchat.model
 
-data class Chat(val type: String, val message: String){
-}
+import com.beust.klaxon.Json
+
+data class Chat (
+    @Json(name = "sender")
+    val sender: String,
+    @Json(name = "message")
+    val message: String
+)
