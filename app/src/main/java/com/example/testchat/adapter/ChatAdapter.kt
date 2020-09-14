@@ -28,11 +28,11 @@ class ChatAdapter(val context: Context)
     inner class Holder(itemView: View): RecyclerView.ViewHolder(itemView){
 
         val mid = itemView.findViewById<TextView>(R.id.mid)
-        val chat_item = itemView.findViewById<TextView>(R.id.messageTextView)
+        val chatItem = itemView.findViewById<TextView>(R.id.messageTextView)
 
         fun bind(chatData: Chat, context: Context){
             mid.text = chatData.sender
-            chat_item.text = chatData.message
+            chatItem.text = chatData.message
         }
     }
 

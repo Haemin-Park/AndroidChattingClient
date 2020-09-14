@@ -61,18 +61,13 @@ class MainActivity : AppCompatActivity() {
                 Event.Type.OPENED -> {
                     // subscribe 채널구독
                     // 메세지 받아오기
-
                     topic = stomp.join("/sub/chat/room/" + constant.chatRoomId).subscribe{
                         stompMessage ->
                         val result = Klaxon()
                                 .parse<Chat>(stompMessage)
-                        Log.d("JOIN", stompMessage.toString())
                         runOnUiThread {
                             if (result != null) {
-                                when (result.sender) {
-                                    constant.SENDER -> cAdapter.addItem(result)
-                                    else -> cAdapter.addItem(result)
-                                }
+                                cAdapter.addItem(result)
                             }
                         }
                     }
@@ -89,10 +84,8 @@ class MainActivity : AppCompatActivity() {
                         }
                         // send
                         stomp.send("/pub/chat/message", jsonObject.toString()).subscribe()
-
                         message.text = null
                     }
-
                     // unsubscribe
                     //topic.dispose()
                 }
