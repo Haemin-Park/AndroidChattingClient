@@ -1,9 +1,9 @@
 package com.example.testchat
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
 import com.beust.klaxon.Parser
@@ -68,12 +68,12 @@ class MainActivity : AppCompatActivity() {
                         runOnUiThread {
                             if (result != null) {
                                 cAdapter.addItem(result)
+                                recycler.smoothScrollToPosition(cAdapter.itemCount)
                             }
                         }
                     }
 
                     send.setOnClickListener {
-
                         try {
                             jsonObject.put("messageType", "TALK")
                             jsonObject.put("chatRoomId", constant.chatRoomId)
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                             e.printStackTrace()
                         }
                         // send
-                        stomp.send("/pub/chat/message", jsonObject.toString()).subscribe()
+                        //stomp.send("/pub/chat/message", jsonObject.toString()).subscribe()
                         message.text = null
                     }
                     // unsubscribe

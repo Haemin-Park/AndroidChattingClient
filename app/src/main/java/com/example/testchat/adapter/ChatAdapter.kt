@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testchat.Constant
 import com.example.testchat.R
@@ -64,5 +65,19 @@ class ChatAdapter(val context: Context)
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(chatDatas[position], context)
+    }
+
+    fun RecyclerView.smoothSnapToPosition(position: Int, snapMode: Int = LinearSmoothScroller.SNAP_TO_START) {
+        val smoothScroller = object: LinearSmoothScroller(this.context) {
+            override fun getVerticalSnapPreference(): Int {
+                return snapMode
+            }
+
+            override fun getHorizontalSnapPreference(): Int {
+                return snapMode
+            }
+        }
+        smoothScroller.targetPosition = position
+        layoutManager?.startSmoothScroll(smoothScroller)
     }
 }

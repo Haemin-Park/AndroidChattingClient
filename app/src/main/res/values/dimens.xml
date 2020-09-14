@@ -12,8 +12,8 @@
     <dimen name="xxlg_space">40dp</dimen>
 
     <dimen name="xs_fontsize">10dp</dimen>
-    <dimen name="sm_fontsize">12dp</dimen>
-    <dimen name="default_fontsize">14dp</dimen>
+    <dimen name="sm_fontsize">13dp</dimen>
+    <dimen name="default_fontsize">15dp</dimen>
     <dimen name="lg_fontsize">20dp</dimen>
 
     <dimen name="default_button_size">45dp</dimen>
