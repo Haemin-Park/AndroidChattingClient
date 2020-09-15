@@ -22,20 +22,22 @@
                 android:id="@+id/mid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름"
                 android:textSize="@dimen/default_fontsize"
-                android:textStyle="bold"
+                android:fontFamily="@font/nanumsquare_acl"
+                android:text="이름"
+                android:textColor="#000000"
                 />
 
             <TextView
                 android:id="@+id/messageTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/remsg"
+                android:background="@drawable/receive_msg_textview"
                 android:padding="@dimen/sm_space"
                 android:textSize="@dimen/lg_fontsize"
-                android:textStyle="bold"
                 tools:text="타인의 메시지"
+                android:fontFamily="@font/nanumsquare_acl"
+                android:textColor="#000000"
                 />
 
         </LinearLayout>

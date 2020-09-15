@@ -14,8 +14,9 @@ import com.example.testchat.model.Chat
 class ChatAdapter(val context: Context)
     : RecyclerView.Adapter<ChatAdapter.Holder>()
 {
-    val MY_VIEW = 1;
-    val RECEIVE_VIEW = 2;
+    val MY_VIEW = 1
+    val RECEIVE_VIEW = 2
+    val ENTER_VIEW = 3
 
     val constant = Constant()
 
@@ -32,18 +33,33 @@ class ChatAdapter(val context: Context)
         val chatItem = itemView.findViewById<TextView>(R.id.messageTextView)
 
         fun bind(chatData: Chat, context: Context){
-            mid.text = chatData.sender
-            chatItem.text = chatData.message
+            val viewType = itemViewType
+
+            when(viewType){
+                ENTER_VIEW -> chatItem.text = chatData.message
+                else -> {
+                    mid.text = chatData.sender
+                    chatItem.text = chatData.message
+                }
+            }
         }
     }
 
     override fun getItemViewType(position: Int) : Int{
         val currentItem: Chat = chatDatas[position]
+        val msgType = currentItem.messageType
         val sender = currentItem.sender
 
-        when(sender){
-            constant.SENDER -> return MY_VIEW
-            else -> return RECEIVE_VIEW
+        when(msgType){
+            constant.MESSAGE_TYPE_ENTER -> {
+                return ENTER_VIEW
+            }
+            constant.MESSAGE_TYPE_TALK -> {
+                when(sender){
+                    constant.SENDER -> return MY_VIEW
+                    else -> return RECEIVE_VIEW
+                }
+            }
         }
 
         return super.getItemViewType(position)
@@ -52,8 +68,9 @@ class ChatAdapter(val context: Context)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
 
         val view = when(viewType){
-            MY_VIEW -> LayoutInflater.from(context).inflate(R.layout.my_msgitem, parent, false)
-            else -> LayoutInflater.from(context).inflate(R.layout.receive_msgitem, parent, false)
+            MY_VIEW -> LayoutInflater.from(context).inflate(R.layout.my_msg_item, parent, false)
+            RECEIVE_VIEW -> LayoutInflater.from(context).inflate(R.layout.receive_msg_item, parent, false)
+            else -> LayoutInflater.from(context).inflate(R.layout.enter_msg_item, parent, false)
         }
 
         return Holder(view)

@@ -73,6 +73,16 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
+                    // 처음 입장
+                    try {
+                        jsonObject.put("messageType", "ENTER")
+                        jsonObject.put("chatRoomId", constant.chatRoomId)
+                        jsonObject.put("sender", constant.SENDER)
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
+                    stomp.send("/pub/chat/message", jsonObject.toString()).subscribe()
+
                     send.setOnClickListener {
                         try {
                             jsonObject.put("messageType", "TALK")
@@ -83,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                             e.printStackTrace()
                         }
                         // send
-                        //stomp.send("/pub/chat/message", jsonObject.toString()).subscribe()
+                        stomp.send("/pub/chat/message", jsonObject.toString()).subscribe()
                         message.text = null
                     }
                     // unsubscribe
@@ -97,7 +107,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
     }
 }

@@ -3,6 +3,8 @@ package com.example.testchat.model
 import com.beust.klaxon.Json
 
 data class Chat (
+    @Json(name = "messageType")
+    val messageType: String,
     @Json(name = "sender")
     val sender: String,
     @Json(name = "message")

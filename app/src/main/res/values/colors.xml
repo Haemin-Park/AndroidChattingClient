@@ -5,5 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="mymsg">#FEEB34</color>
     <color name="remsg">#FFFFFF</color>
+    <color name="enmsg">#7797AB</color>
     <color name="colorChatMessageBackground">#99BBD0</color>
 </resources>
