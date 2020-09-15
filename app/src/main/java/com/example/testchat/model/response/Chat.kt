@@ -1,4 +1,4 @@
-package com.example.testchat.model
+package com.example.testchat.model.response
 
 import com.beust.klaxon.Json
 

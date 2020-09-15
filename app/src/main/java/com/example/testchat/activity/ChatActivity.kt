@@ -1,49 +1,48 @@
-package com.example.testchat
+package com.example.testchat.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Klaxon
-import com.beust.klaxon.Parser
+import com.example.testchat.Constant
+import com.example.testchat.R
 import com.example.testchat.adapter.ChatAdapter
-import com.example.testchat.model.Chat
+import com.example.testchat.model.response.Chat
 import com.gmail.bishoybasily.stomp.lib.Event
 import com.gmail.bishoybasily.stomp.lib.StompClient
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_chat.*
 import okhttp3.OkHttpClient
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.concurrent.TimeUnit
-import java.util.logging.Logger
 
+class ChatActivity : AppCompatActivity() {
 
-class MainActivity : AppCompatActivity() {
-
-    val cAdapter: ChatAdapter = ChatAdapter(this)
-    val logger = Logger.getLogger("Main")
+    lateinit var cAdapter: ChatAdapter
 
     var jsonObject = JSONObject()
 
     lateinit var stompConnection: Disposable
     lateinit var topic: Disposable
 
-    val parser: Parser = Parser()
-    lateinit var json: JsonObject
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_chat)
 
-        recycler.adapter = cAdapter
-        recycler.layoutManager = LinearLayoutManager(this)
-        recycler.setHasFixedSize(true)
+        val intent = getIntent()
+        val bundle = intent.getBundleExtra("myBundle")
+        val constant: Constant = Constant
+        if(bundle != null) {
+            constant.set(bundle.getString("sender")!!, bundle.getString("chatRoomId")!!)
+        }
 
-        val constant = Constant()
+        cAdapter = ChatAdapter(this)
+        recycler_chat.adapter = cAdapter
+        recycler_chat.layoutManager = LinearLayoutManager(this)
+        recycler_chat.setHasFixedSize(true)
 
-        //1. init
+        //1. STOMP init
         // url: ws://[도메인]/[엔드포인트]/websocket
         val url = constant.URL
         val intervalMillis = 5000L
@@ -61,14 +60,14 @@ class MainActivity : AppCompatActivity() {
                 Event.Type.OPENED -> {
                     // subscribe 채널구독
                     // 메세지 받아오기
-                    topic = stomp.join("/sub/chat/room/" + constant.chatRoomId).subscribe{
+                    topic = stomp.join("/sub/chat/room/" + constant.CHATROOM_ID).subscribe{
                         stompMessage ->
                         val result = Klaxon()
                                 .parse<Chat>(stompMessage)
                         runOnUiThread {
                             if (result != null) {
                                 cAdapter.addItem(result)
-                                recycler.smoothScrollToPosition(cAdapter.itemCount)
+                                recycler_chat.smoothScrollToPosition(cAdapter.itemCount)
                             }
                         }
                     }
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     // 처음 입장
                     try {
                         jsonObject.put("messageType", "ENTER")
-                        jsonObject.put("chatRoomId", constant.chatRoomId)
+                        jsonObject.put("chatRoomId", constant.CHATROOM_ID)
                         jsonObject.put("sender", constant.SENDER)
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                     send.setOnClickListener {
                         try {
                             jsonObject.put("messageType", "TALK")
-                            jsonObject.put("chatRoomId", constant.chatRoomId)
+                            jsonObject.put("chatRoomId", constant.CHATROOM_ID)
                             jsonObject.put("sender", constant.SENDER)
                             jsonObject.put("message", message.text.toString())
                         } catch (e: JSONException) {

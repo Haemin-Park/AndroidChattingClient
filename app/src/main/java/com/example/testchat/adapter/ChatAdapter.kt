@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testchat.Constant
 import com.example.testchat.R
-import com.example.testchat.model.Chat
+import com.example.testchat.model.response.Chat
 
 class ChatAdapter(val context: Context)
     : RecyclerView.Adapter<ChatAdapter.Holder>()
@@ -18,7 +18,7 @@ class ChatAdapter(val context: Context)
     val RECEIVE_VIEW = 2
     val ENTER_VIEW = 3
 
-    val constant = Constant()
+    val constant = Constant
 
     var chatDatas = ArrayList<Chat>()
 
