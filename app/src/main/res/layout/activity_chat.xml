@@ -31,7 +31,9 @@
             android:layout_width="@dimen/default_button_size"
             android:layout_height="match_parent"
             android:background="@color/mymsg"
-            android:text="전송" />
+            android:fontFamily="@font/nanumsquare_acl"
+            android:text="전송"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>

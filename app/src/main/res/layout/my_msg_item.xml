@@ -22,18 +22,20 @@
             android:text="이름"
             android:textColor="#000000"
             android:textSize="@dimen/default_fontsize"
-            />
+            android:textStyle="bold" />
 
         <TextView
+            android:layout_marginTop="@dimen/sm_space"
             android:id="@+id/messageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/my_msg_textview"
             android:padding="@dimen/sm_space"
-            android:textSize="@dimen/lg_fontsize"
+            android:textSize="@dimen/default_fontsize"
             tools:text="본인의 메시지"
             android:fontFamily="@font/nanumsquare_acl"
             android:textColor="#000000"
+            android:textStyle="bold"
             />
 
     </LinearLayout>

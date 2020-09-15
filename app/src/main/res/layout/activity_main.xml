@@ -7,6 +7,17 @@
     tools:context=".activity.MainActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/lg_space"
+        android:fontFamily="@font/nanumsquare_acl"
+        android:gravity="center"
+        android:text="채팅방 목록"
+        android:textColor="#000000"
+        android:textSize="@dimen/lg_fontsize"
+        android:textStyle="bold"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"

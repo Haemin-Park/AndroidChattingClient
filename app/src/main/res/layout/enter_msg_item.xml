@@ -15,5 +15,6 @@
         android:fontFamily="@font/nanumsquare_acl"
         android:text="입장 메세지"
         android:textColor="#000000"
-        android:textSize="@dimen/sm_fontsize"/>
+        android:textSize="@dimen/sm_fontsize"
+        android:textStyle="bold"/>
 </LinearLayout>
